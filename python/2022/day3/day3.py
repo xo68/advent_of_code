@@ -18,12 +18,24 @@ def init_values():
         val = val + 1
 
 
+# Function for part2 (badges)
+def check_badges(l: list) -> int:
+    i0, i1, i2 = l[0], l[1], l[2]
+    for c0 in i0[:-1]:
+        for c1 in i1[:-1]:
+            for c2 in i2[:-1]:
+                if c0 == c1 == c2:
+                    return VALUES[c0]
+    return 0
+
+
 def main():
+    # Part 1
     total = 0
+    total_part2 = 0
     first_part = ""
     second_part = ""
     size = 0
-
     init_values()
 
     if not os.path.isfile(FILE):
@@ -47,7 +59,19 @@ def main():
         total = total + VALUES[found_char]
         # print(f"Char:{found_char}, Val{VALUES[found_char]}")
 
-    print(f"Total:{total}")
+    print(f"Total_part1:{total}")
+
+    # PART 2 of the exercice (Badges)
+    badges = []
+    x = 0
+    for line in lines:
+        badges.insert(x, line)
+        x = x + 1
+        if x // 3:
+            total_part2 = total_part2 + check_badges(badges)
+            x = 0
+
+    print(f"Total_part2:{total_part2}")
 
 
 if __name__ == "__main__":
