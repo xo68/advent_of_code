@@ -5,8 +5,9 @@ FILE = "input.txt"
 
 
 def main():
-    elf_current, elf_max = 1, 1
-    cal_current, cal_max = 0, 0
+    cal_current = 0
+    cal_table = []
+    top_elves = 0
 
     if not os.path.isfile(FILE):
         print(f'Input file "{FILE}" does not exist!')
@@ -17,17 +18,21 @@ def main():
 
     for line in lines:
         if line == "\n":
-            if cal_max <= cal_current:
-                cal_max = cal_current
-                elf_max = elf_current
-
-            elf_current = elf_current + 1
+            cal_table.append(cal_current)
             cal_current = 0
-
         else:
             cal_current = cal_current + int(line)
 
-    print(f"Elf:{elf_max}, Cal:{cal_max}")
+    cal_table.sort()
+
+    # Elf having the most calories
+    top_elves = cal_table.pop()
+    print(f"Top 1 elf -> {top_elves}")
+
+    # Add the next 2 elves
+    top_elves = top_elves + cal_table.pop()
+    top_elves = top_elves + cal_table.pop()
+    print(f"Top 3 elves -> {top_elves}")
 
 
 if __name__ == "__main__":
