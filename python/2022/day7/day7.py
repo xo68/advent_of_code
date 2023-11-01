@@ -5,7 +5,14 @@ import sys
 FILE = "input.txt"
 
 # https://adventofcode.com/2022/day/7
+
+# Part 1
 Total_part1 = 0  # Result for the first exercise
+
+# Part 2
+DISK_SPACE = 70000000  # 70M
+REQUIRED_SPACE = 30000000  # 30M
+Potential_candidate = []  # List all dir sizes that can be deleted
 
 
 class Directory:
@@ -24,16 +31,6 @@ class File:
         self.size = size
 
 
-def display(dir):
-    print(f"Content of Directory {dir.name}, size={dir.size}")
-    for f in dir.files:
-        print(f"File:{f.name}")
-    for d in dir.directories:
-        print(f"Dir:{d}")
-    for d in dir.directories:
-        display(dir.directories[d])
-
-
 # Part 1, sum of all directories with size at most 100'000.
 # At this stage, each dir contains already it's own size.
 # We need to add the sub directories
@@ -44,7 +41,7 @@ def calculate_size(dir):
         dir.directories[d].previous_directory.size += dir.directories[d].size
 
 
-# Sum of all directories of size < 100'000
+# Part 1, Sum of all directories of size < 100'000
 # We navigate the Tree and check the size of each directory
 def calculate_sum(dir):
     for d in dir.directories:
@@ -97,16 +94,36 @@ def load():
                 current_dir.current_directory = True
                 root_dir = current_dir
             else:
-                print(f" <PARSING PARSING> {line.strip()}")
+                print(f" <PARSING ERROR> {line.strip()}")
+                sys.exit()
     return root_dir
+
+
+# Part 2 of the exercice
+# Put all directories's size in a list of candidate
+def get_candidate(dir):
+    for d in dir.directories:
+        get_candidate(dir.directories[d])
+        Potential_candidate.append(dir.directories[d].size)
+
+
+# Part 2 of the exercice
+# Return smallest directory size that will free up enough space
+def calculate_part2(dir):
+    unused_space = DISK_SPACE - dir.size
+    get_candidate(dir)
+    Potential_candidate.sort()
+    for i in Potential_candidate:
+        if i + unused_space > REQUIRED_SPACE:
+            return i
 
 
 def main():
     root = load()
     calculate_size(root)
     calculate_sum(root)
-    # display(root)
     print(f"Total Part1: {Total_part1}")
+    print(f"Total Part2: {calculate_part2(root)}")
 
 
 if __name__ == "__main__":
