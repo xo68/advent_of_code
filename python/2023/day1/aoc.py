@@ -5,7 +5,7 @@ import sys
 FILE = "input.txt"
 
 
-def read_inputs() -> list:
+def read_inputs():
     if not os.path.isfile(FILE):
         print(f'Input file "{FILE}" does not exist!')
         sys.exit()
@@ -13,7 +13,7 @@ def read_inputs() -> list:
         return lines.readlines()
 
 
-def return_value(str_val):
+def return_value(value):
     values = [
         "zero",
         "one",
@@ -26,26 +26,23 @@ def return_value(str_val):
         "eight",
         "nine",
     ]
-    return str(values.index(str_val)) if str_val in values else str_val
+    return str(values.index(value)) if value in values else value
 
 
 def main():
     res1, res2 = 0, 0
 
     # PART 1 #
-    digits = re.compile(r"([1-9])")
+    digits = re.compile(r"[1-9]")
     for line in read_inputs():
         all = digits.findall(line)
-        if len(all) == 1:
-            val = all[0] * 2
-        else:
-            val = all[0] + all[-1]
+        val = all[0] * 2 if len(all) == 1 else all[0] + all[-1]
         res1 += int(val)
     print(f"Result1:{res1}")
 
     # PART 2 #
     # Return all matches that are non-overlap
-    all = re.compile(r"(one|two|three|four|five|six|seven|eight|nine|[1-9])")
+    all = re.compile(r"one|two|three|four|five|six|seven|eight|nine|[1-9]")
     # Return only the last match
     last = re.compile(r"(?s:.*)(one|two|three|four|five|six|seven|eight|nine|[1-9])")
 
