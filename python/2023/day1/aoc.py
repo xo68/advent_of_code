@@ -14,31 +14,25 @@ def read_inputs() -> list:
 
 
 def return_value(str_val):
-    if str_val == "one":
-        return "1"
-    elif str_val == "two":
-        return "2"
-    elif str_val == "three":
-        return "3"
-    elif str_val == "four":
-        return "4"
-    elif str_val == "five":
-        return "5"
-    elif str_val == "six":
-        return "6"
-    elif str_val == "seven":
-        return "7"
-    elif str_val == "eight":
-        return "8"
-    elif str_val == "nine":
-        return "9"
-    return str_val
+    values = [
+        "zero",
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+    ]
+    return str(values.index(str_val)) if str_val in values else str_val
 
 
 def main():
     res1, res2 = 0, 0
 
-    ##### PART 1 #####
+    # PART 1 #
     digits = re.compile(r"([1-9])")
     for line in read_inputs():
         all = digits.findall(line)
@@ -49,7 +43,7 @@ def main():
         res1 += int(val)
     print(f"Result1:{res1}")
 
-    ##### PART 2 #####
+    # PART 2 #
     # Return all matches that are non-overlap
     all = re.compile(r"(one|two|three|four|five|six|seven|eight|nine|[1-9])")
     # Return only the last match
