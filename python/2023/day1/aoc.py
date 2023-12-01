@@ -41,14 +41,13 @@ def main():
     print(f"Result1:{res1}")
 
     # PART 2 #
-    # Return all matches that are non-overlap
-    all = re.compile(r"one|two|three|four|five|six|seven|eight|nine|[1-9]")
-    # Return only the last match
-    last = re.compile(r"(?s:.*)(one|two|three|four|five|six|seven|eight|nine|[1-9])")
+    values = "one|two|three|four|five|six|seven|eight|nine|[1-9]"
+    all = re.compile(values)  # Return all matches that are non-overlap
+    last = re.compile(r"(?:.*)(" + values + ")")  # Return only the last match
 
     for line in read_inputs():
-        val1 = all.findall(line)[0]  # First match that is found
-        val2 = last.findall(line)[0]  # There is only 1 match, the last one
+        val1 = all.findall(line)[0]
+        val2 = last.findall(line)[0]
         res2 += int(return_value(val1) + return_value(val2))
     print(f"Result2:{res2}")
 
