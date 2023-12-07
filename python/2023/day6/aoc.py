@@ -13,13 +13,9 @@ if __name__ == "__main__":
     # Part 2
     T2 = 35937366
     D2 = 212206012011044
-    left, right = 0, 0
+    res2 = 0
     for speed in range(T2):
         if speed * (T2 - speed) > D2:
-            left = T2 - speed
-            break
-    for speed in range(T2, -1, -1):
-        if speed * (T2 - speed) > D2:
-            right = T2 - speed
-            break
-    print(f"Result2:{left - right + 1}")
+            res2 += 1
+
+    print(f"Result2:{res2}")
