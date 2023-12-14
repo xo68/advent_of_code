@@ -5,10 +5,13 @@ def process(data, part2=False):
 
         if part2:
             diff = 0
-            for x, y in zip(up, down):
-                for x1, y1 in zip(x, y):
-                    if x1 != y1:
-                        diff += 1
+            if type(up) is list:
+                up = "".join(str(e) for e in up)
+                down = "".join(str(e) for e in down)
+
+            for x1, y1 in zip(up, down):
+                if x1 != y1:
+                    diff += 1
             if diff == 1:
                 return i
         else:
