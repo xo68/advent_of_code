@@ -3,7 +3,13 @@ import sys
 sys.setrecursionlimit(10000)
 grid = []
 vis = set()
-res = set()
+
+
+def seen(v):
+    s = set()
+    for i in v:
+        s.add((i[0], i[1]))
+    return len(s)
 
 
 def browse(r, c, d):
@@ -14,11 +20,10 @@ def browse(r, c, d):
     # I store my position (vis = visited)
     if (r, c, d) not in vis:
         vis.add((r, c, d))
-        res.add((r, c))
     else:
         return 0
 
-    # ch = current chacter in ".|/\"
+    # ch = current chacter in ".|/\-"
     ch = grid[r][c]
 
     if ch == ".":
@@ -76,24 +81,24 @@ if __name__ == "__main__":
 
     # Part 1
     browse(0, 0, ">")
-    res1 = len(set(res))
+    res1 = seen(seen)
 
     # Part 2
     for c in range(COL):
-        vis, res = set(), set()
+        vis = set()
         browse(0, c, "v")
-        res2 = max(res2, len(set(res)))
-        vis, res = set(), set()
+        res2 = max(res2, seen(vis))
+        vis = set()
         browse(ROW - 1, c, "^")
-        res2 = max(res2, len(set(res)))
+        res2 = max(res2, seen(vis))
 
     for r in range(ROW):
-        vis, res = set(), set()
+        vis = set()
         browse(r, 0, ">")
-        res2 = max(res2, len(set(res)))
-        vis, res = set(), set()
+        res2 = max(res2, seen(vis))
+        vis = set()
         browse(r, COL - 1, "<")
-        res2 = max(res2, len(set(res)))
+        res2 = max(res2, seen(vis))
 
     print(f"Result1:{res1}")
     print(f"Result2:{res2}")
