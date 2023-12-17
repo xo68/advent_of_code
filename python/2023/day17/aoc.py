@@ -16,8 +16,8 @@ if __name__ == "__main__":
     visited = set()
 
     G = []
-    for r in open("input.txt").read().strip().split("\n"):
-        G.append(list(map(int, r)))
+    for rg in open("input.txt").read().strip().split("\n"):
+        G.append(list(map(int, rg)))
 
     ROW = len(G)
     COL = len(G[0])
