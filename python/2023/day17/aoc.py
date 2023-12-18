@@ -6,6 +6,7 @@ DIRECTIONS = ((0, 1), (0, -1), (1, 0), (-1, 0))  # (ROW,COLUMN)
 # MIN_LIMIT = 1
 # MAX_LIMIT = 3
 
+
 # PART 2
 MIN_LIMIT = 4
 MAX_LIMIT = 10
@@ -42,11 +43,8 @@ if __name__ == "__main__":
 
             if num >= MIN_LIMIT or (dir_row, dir_col) == (0, 0):
                 for dr, dc in DIRECTIONS:
-                    if (dr, dc) != (dir_row, dir_col) and (dr, dc) != (
-                        -dir_row,
-                        -dir_col,
-                    ):
-                        r = row + dr
+                    if (dr, dc) != (dir_row, dir_col) and (dr, dc) != ( -dir_row, -dir_col,):
+                            r = row + dr
                         c = col + dc
                         if r >= 0 and r < ROW and c >= 0 and c < COL:
                             h = heat_loss + G[r][c]
