@@ -58,12 +58,21 @@ if __name__ == "__main__":
     # Rock symbols for the equations
     xr, yr, zr, vxr, vyr, vzr = symbols("xr, yr, zr, vxr, vyr, vzr")
 
-    # 2 equations required
-    # We can skip the implicit third equation
-    # Transform the equations as sympy will solve eq = 0
+    # Approach:
+    # ---------
+    #
+    # T : Time, At one point in time we find,
+    # x + Tvx = xr + Tvxr
+    #
+    # T = xr - x / vx - vxr <-- Should be the case for y and z
+    #
     # xr - x      yr - y      zr - r
     # --------- = --------- = --------
     # vx - vxr    vy - vyr    vz - vzr
+    #
+    # 2 equations required
+    # We can skip the implicit third equation
+    # Transform the equations as sympy will solve eq = 0
 
     eq = []
     for x, y, z, vx, vy, vz in H:
